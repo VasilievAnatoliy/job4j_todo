@@ -56,7 +56,7 @@
                     <i th:text="${item.name}"></i>
                 </a>
                 </td>
-                <td th:text="${item.created}"/>
+                <td th:text="${#temporals.format(item.created, 'dd-MM-yyyy HH:mm:ss')}"/>
                 <td>
                     <span th:if="${item.done}">
                         <i class="fa fa-check-square-o"></i>

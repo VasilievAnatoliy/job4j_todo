@@ -69,8 +69,7 @@ public class ItemStore {
 
     public void delete(int id) {
         tx(session -> {
-            Item item = new Item();
-            item.setId(id);
+            Item item = session.get(Item.class, id);
             session.delete(item);
                     return null;
                 }

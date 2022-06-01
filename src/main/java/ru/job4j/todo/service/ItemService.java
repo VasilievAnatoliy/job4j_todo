@@ -5,6 +5,7 @@ import ru.job4j.todo.model.Item;
 import ru.job4j.todo.persistence.ItemStore;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ItemService {
     }
 
     public void add(Item item) {
-        item.setCreated(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        item.setCreated(LocalDateTime.now());
         itemStore.add(item);
     }
 
