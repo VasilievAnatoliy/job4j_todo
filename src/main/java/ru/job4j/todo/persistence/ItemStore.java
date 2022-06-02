@@ -68,11 +68,9 @@ public class ItemStore {
     }
 
     public void delete(int id) {
-        tx(session -> {
-            Item item = session.get(Item.class, id);
-            session.delete(item);
-                    return null;
-                }
+        tx(session -> session.createQuery(
+                "delete from Item where id = :fId")
+                .setParameter("fId", id).executeUpdate()
         );
     }
 
