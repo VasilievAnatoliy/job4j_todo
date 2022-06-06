@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.ItemService;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ItemController {
@@ -18,13 +21,21 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public String items(Model model) {
+    public String items(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findAll());
         return "items";
     }
 
     @GetMapping("/formAddItem")
-    public String addItem() {
+    public String addItem(@ModelAttribute Item item, Model model, HttpSession session) {
+         User user = (User) session.getAttribute("user");
+         model.addAttribute("user", user);
         return "addItem";
     }
 
@@ -35,26 +46,36 @@ public class ItemController {
     }
 
     @GetMapping("/formNewItems")
-    public String allNewItems(Model model) {
+    public String allNewItems(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findAllNotDone());
         return "items";
     }
 
     @GetMapping("/formDoneItems")
-    public String allDoneItems(Model model) {
+    public String allDoneItems(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findAllDone());
         return "items";
     }
 
     @GetMapping("/formDescriptionItem/{itemId}")
-    public String descriptionItem(Model model, @PathVariable("itemId") int id) {
+    public String descriptionItem(
+            Model model, HttpSession session, @PathVariable("itemId") int id) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         Item item = itemService.findById(id);
         model.addAttribute("item", item);
         return "descriptionItem";
     }
 
     @GetMapping("/formUpdate/{itemId}")
-    public String formUpdateItem(Model model, @PathVariable("itemId") int id) {
+    public String formUpdateItem(
+            Model model, HttpSession session, @PathVariable("itemId") int id) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         Item item = itemService.findById(id);
         model.addAttribute("item", item);
         return "updateItem";

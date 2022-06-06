@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!doctype html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,45 +19,46 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <title>Добавить задание</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Добавить задание</a>
+        <a class="navbar-brand" href="#">TODO список</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/items}">Список заданий</a>
-                <a class="nav-item nav-link" th:href="@{/logout}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Выйти</span>
+                <a class="nav-item nav-link" th:href="@{/items}">Главная</a>
+                <a class="nav-item nav-link" th:href="@{/loginPage}">
+                    <span th:text="Гость"></span>
+                    <span> | Войти</span>
                 </a>
             </div>
         </div>
     </nav>
-    <div class="row pt -3">
+    <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новое задание
+                Регистрация нового пользователя
             </div>
             <div class="card-body">
-                <form th:action="@{/createItem}" method="POST" th:object="${item}">
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Пользователь с таким логином уже существует
+                </div>
+                <form th:action="@{/registration}" method="post">
                     <input type="hidden" name="id" value="0"/>
-                    <input type="hidden" name="created" id="created"/>
-                    <input type="hidden" name="done" value="false">
-                    <input type="hidden" name="user.id" th:value="${user.id}">
                     <div class="form-group">
-                        <label>Задание:
-                            <input type="text" class="form-control" size="30" name="name" id="name">
+                        <label>Логин
+                            <input type="text" class="form-control" name="name" id="name">
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Подробное описание задания:</label>
-                        <input type="text" class="form-control" name="description" id="description">
+                        <label for="password">Пароль
+                            <input type="password" class="form-control" size="40" name="password" id="password">
+                        </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

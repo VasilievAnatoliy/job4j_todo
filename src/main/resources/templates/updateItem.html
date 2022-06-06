@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,6 +34,10 @@
                 <a class="nav-item nav-link" th:href="@{/items}">Все задания</a>
                 <a class="nav-item nav-link" th:href="@{/formNewItems}">Новые</a>
                 <a class="nav-item nav-link" th:href="@{/formDoneItems}">Выполненные</a>
+                <a class="nav-item nav-link" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -45,6 +49,9 @@
             <div class="card-body">
                 <form th:action="@{/updateItem}" method="POST" th:object="${item}">
                     <input type="hidden" name="id" th:field="*{id}"/>
+                    <input type="hidden" name="created" id="created" th:field="*{created}"/>
+                    <input type="hidden" name="done" id="done" th:field="*{done}"/>
+                    <input type="hidden" name="user.id" th:value="${user.id}">
                     <div class="form-group">
                         <label for="name">Задание:
                             <input type="text" class="form-control" size="30" name="name" id="name" th:field="*{name}">
@@ -52,10 +59,8 @@
                     </div>
                     <div class="form-group">
                         <label>Подробное описание задания:</label>
-                            <input type="text" class="form-control" name="description" id="description"
-                                   th:field="*{description}">
-                            <input type="hidden" name="created" id="created" th:field="*{created}"/>
-                            <input type="hidden" name="done" id="done" th:field="*{done}"/>
+                        <input type="text" class="form-control" name="description" id="description"
+                               th:field="*{description}">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

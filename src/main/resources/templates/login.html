@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
@@ -7,8 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
@@ -19,47 +18,50 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <title>Добавить задание</title>
+    <title>Авторизация</title>
 </head>
 <body>
-<div class="container">
+<div class="container pt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Добавить задание</a>
+        <a class="navbar-brand" href="#">TODO список</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/items}">Список заданий</a>
-                <a class="nav-item nav-link" th:href="@{/logout}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Выйти</span>
-                </a>
+                <a class="nav-item nav-link" th:href="@{/items}">Главная</a>
             </div>
         </div>
     </nav>
-    <div class="row pt -3">
+    <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новое задание
+                <h4>Авторизация</h4>
+                <p>Только авторизованный пользователь может добавлять задания,
+                    редактировать и просматривать описание.</p>
             </div>
             <div class="card-body">
-                <form th:action="@{/createItem}" method="POST" th:object="${item}">
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Логин или пароль введены не верно!
+                </div>
+                <form th:action="@{/login}" method="POST">
                     <input type="hidden" name="id" value="0"/>
-                    <input type="hidden" name="created" id="created"/>
-                    <input type="hidden" name="done" value="false">
-                    <input type="hidden" name="user.id" th:value="${user.id}">
                     <div class="form-group">
-                        <label>Задание:
-                            <input type="text" class="form-control" size="30" name="name" id="name">
+                        <label>Логин
+                            <input type="text" class="form-control" size="40" name="name">
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Подробное описание задания:</label>
-                        <input type="text" class="form-control" name="description" id="description">
+                        <label>Пароль
+                            <input type="password" class="form-control" size="40" name="password">
+                        </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </form>
+                <br>
+                <form th:action="@{/formAddUser}">
+                    <button type="submit" class="btn btn-primary">Регистрация</button>
                 </form>
             </div>
         </div>
