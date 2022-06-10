@@ -2,7 +2,9 @@ package ru.job4j.todo.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "items")
@@ -18,7 +20,11 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Item() {
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Category> categories = new HashSet<>();
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
     }
 
     public Item of(int id, String name, String description, LocalDateTime created, boolean done) {
@@ -77,6 +83,14 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

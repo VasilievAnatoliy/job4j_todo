@@ -59,6 +59,17 @@
                         <label>Подробное описание задания:</label>
                         <input type="text" class="form-control" name="description" id="description">
                     </div>
+                    <div class="form-group">
+                        <label for="category.id">Категории:
+                            <select class="form-control" id="category.id" name="categoryId" multiple="multiple"
+                                    size="3">
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                        </label>
+                        <p><small>выбор нескольких категорий находящихся рядом выделяются курсором или с кнопкой Shift,
+                            категории находящиеся не рядом выделяются c кнопкой Ctrl</small></p>
+                    </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

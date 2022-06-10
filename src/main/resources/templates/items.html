@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -52,6 +52,7 @@
             <tr>
                 <th scope="col">№</th>
                 <th scope="col">Задание</th>
+                <th scope="col">Категория</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Выполнено</th>
                 <th scope="col">Автор задания</th>
@@ -64,6 +65,9 @@
                 <a th:href="@{|/formDescriptionItem/${item.id}|}">
                     <i th:text="${item.name}"></i>
                 </a>
+                </td>
+                <td>
+                   <span th:each="category: ${item.getCategories()}" th:text="${category.name} + ' ' "></span>
                 </td>
                 <td th:text="${#temporals.format(item.created, 'dd-MM-yyyy HH:mm:ss')}"/>
                 <td>

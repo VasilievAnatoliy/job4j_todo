@@ -38,24 +38,27 @@ public class ItemStore {
     }
 
     public Item findById(int id) {
-       return tx(session -> session.get(Item.class, id));
+       return tx(session -> (Item) session.createQuery(
+               "select distinct s from Item s join fetch s.categories where s.id = :fId")
+                       .setParameter("fId", id).uniqueResult()
+               );
     }
 
     public List findAll() {
         return tx(session -> session.createQuery(
-                "from Item").list()
+             "select distinct s from Item s join fetch s.categories").list()
         );
     }
 
     public List findAllDone() {
         return tx(session -> session.createQuery(
-                "from Item where done = true").list()
+                "select distinct s from Item s join fetch s.categories where s.done = true").list()
         );
     }
 
     public List findAllNotDone() {
         return tx(session -> session.createQuery(
-                "from Item where done = false").list()
+                "select distinct s from Item s join fetch s.categories where s.done = false").list()
         );
     }
 
