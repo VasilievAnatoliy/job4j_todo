@@ -4,9 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Item;
 import ru.job4j.todo.persistence.ItemStore;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -18,7 +15,6 @@ public class ItemService {
     }
 
     public void add(Item item) {
-        item.setCreated(LocalDateTime.now());
         itemStore.add(item);
     }
 

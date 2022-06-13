@@ -1,7 +1,7 @@
 package ru.job4j.todo.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +14,9 @@ public class Item {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created = new Date(System.currentTimeMillis());
     private boolean done;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -27,7 +29,7 @@ public class Item {
         this.categories.add(category);
     }
 
-    public Item of(int id, String name, String description, LocalDateTime created, boolean done) {
+    public Item of(int id, String name, String description, Date created, boolean done) {
         Item item = new Item();
         item.id = id;
         item.name = name;
@@ -61,11 +63,11 @@ public class Item {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

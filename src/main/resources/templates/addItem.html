@@ -47,7 +47,6 @@
             <div class="card-body">
                 <form th:action="@{/createItem}" method="POST" th:object="${item}">
                     <input type="hidden" name="id" value="0"/>
-                    <input type="hidden" name="created" id="created"/>
                     <input type="hidden" name="done" value="false">
                     <input type="hidden" name="user.id" th:value="${user.id}">
                     <div class="form-group">

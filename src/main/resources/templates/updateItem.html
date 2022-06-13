@@ -59,7 +59,7 @@
                                 <td>
                                     <span th:each="category: ${item.getCategories()}" th:text="${category.name} + ' ' + ' ' "></span>
                                 </td>
-                                <td th:text="${#temporals.format(item.created, 'dd-MM-yyyy HH:mm:ss')}"/>
+                                <td th:text="${#dates.format(item.created, 'dd-MM-yyyy HH:mm:ss')}"/>
                                 <td th:if="${item.done}">Выполнено</td>
                                 <td th:if="${!item.done}">Не выполнено</td>
                                 <td th:text="${item.user.name}"/>
@@ -73,7 +73,6 @@
             <div class="card-body">
                 <form th:action="@{/updateItem}" method="POST" th:object="${item}">
                     <input type="hidden" name="id" th:field="*{id}"/>
-                    <input type="hidden" name="created" id="created" th:field="*{created}"/>
                     <input type="hidden" name="done" id="done" th:field="*{done}"/>
                     <input type="hidden" name="user.id" th:value="${user.id}">
                     <div class="form-group">
